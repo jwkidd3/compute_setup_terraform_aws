@@ -34,7 +34,7 @@ resource "aws_instance" "instance" {
   count=4
   key_name="kiddcorp"
   tags = {
-    Name = "user25-instance-${count.index}",
+    Name = "instance-${count.index}",
     role=count.index==0?"lb": (count.index<3?"web":"backend")
   }
 }
