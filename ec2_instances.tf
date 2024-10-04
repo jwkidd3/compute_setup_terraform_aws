@@ -1,19 +1,15 @@
 terraform {
 backend "s3" {
     bucket         = "kiddcorptf"
-    key            = "tf/${var.keyvalue}"
     region         = "us-west-1"
   }
+# pass the key on init -backend-config="key=terraform/state/dev.tfstate"
   required_providers {
     aws = {
       source  = "hashicorp/aws"
       version = "~> 4.0"
     } 
   }
-}
-variable "keyvalue"{
-  type=string
-  default="tf"
 }
 
 # Configure the AWS Provider
