@@ -1,7 +1,7 @@
 terraform {
 backend "s3" {
     bucket         = "kiddcorptf"
-    key            = "tf/${var.keyvalue"}
+    key            = "tf/${var.keyvalue}"
     region         = "us-west-1"
   }
   required_providers {
