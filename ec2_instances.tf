@@ -1,7 +1,7 @@
 terraform {
 backend "s3" {
     bucket         = "kiddcorptf"
-    key            = "tf/terraform.tfstate"  # Path within the bucket
+    key            = "tf/${var.keyvalue"}
     region         = "us-west-1"
   }
   required_providers {
@@ -10,6 +10,10 @@ backend "s3" {
       version = "~> 4.0"
     } 
   }
+}
+variable "keyvalue"{
+  type=string
+  default="tf"
 }
 
 # Configure the AWS Provider
