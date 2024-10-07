@@ -17,6 +17,10 @@ provider "aws" {
   region = "us-west-1"
 }
 
+variable "student_alias"{
+  description="your student alias"
+}
+
 data "aws_ami" "ubuntu" {
   most_recent = true
 
