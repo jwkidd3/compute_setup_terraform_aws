@@ -3,6 +3,10 @@ terraform {
   #    bucket         = "kiddcorptf"
   #    region         = "us-west-1"
   #  }
+backend "s3" {
+    bucket         = "kiddcorptf"
+    region         = "us-west-1"
+  }
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -20,6 +24,10 @@ provider "aws" {
 }
 
 data "aws_organizations_organization" "org" {}
+
+variable "student_alias"{
+  description="your student alias"
+}
 
 data "aws_ami" "ubuntu" {
   most_recent = true
@@ -58,6 +66,15 @@ data "aws_ami" "ubuntu" {
 
 locals {
   ids = data.aws_organizations_organization.org.accounts[*].id
+resource "aws_instance" "instance" {
+  ami           = data.aws_ami.ubuntu.id
+  instance_type = "t3.micro"
+  key_name="kiddcorp"
+  count=3
+  tags = {
+    Name = "${var.student_alias}-${count.index}",
+    role=count.index==0?"user25-lb": (count.index<3?"user25-web":"user25-backend") 
+  }
 }
 
 # Output the list of account IDs
